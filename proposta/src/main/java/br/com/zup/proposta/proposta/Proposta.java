@@ -32,4 +32,29 @@ public class Proposta {
         this.endereco = endereco;
         this.salario = salario;
     }
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+	
 }
