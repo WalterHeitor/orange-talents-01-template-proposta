@@ -11,27 +11,34 @@ public class Proposta {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     @Column(nullable = false)
     private String documento;
+    @NotBlank
     @Column(nullable = false)
     private String email;
+    @NotBlank
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
-    private String endereco;
     @Positive
+    @NotNull
     @Column(nullable = false)
     private BigDecimal salario;
+    @NotNull
+    @Embedded
+    private Endereco endereco;
+    
+    @Deprecated
+    public Proposta() { }
 
-    public Proposta(@NotBlank String documento, @NotBlank @Email String email,
-                    @NotBlank String nome, @NotBlank String endereco,
-                    @NotNull BigDecimal salario) {
-        this.documento = documento;
-        this.email = email;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.salario = salario;
-    }
+	public Proposta(@NotBlank String documento, @NotBlank String email, @NotBlank String nome,
+			@Positive @NotNull BigDecimal salario, @NotNull Endereco endereco) {
+		this.documento = documento;
+		this.email = email;
+		this.nome = nome;
+		this.salario = salario;
+		this.endereco = endereco;
+	}
 
 	public Long getId() {
 		return id;
@@ -49,12 +56,11 @@ public class Proposta {
 		return nome;
 	}
 
-	public String getEndereco() {
-		return endereco;
-	}
-
 	public BigDecimal getSalario() {
 		return salario;
+	}
+	public Endereco getEndereco() {
+		return endereco;
 	}
 	
 }

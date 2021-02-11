@@ -14,18 +14,16 @@ public class PropostaRequest {
     private String email;
     @NotBlank
     private String nome;
-    @NotBlank
-    private String endereco;
     @NotNull
     private BigDecimal salario;
+    
+    private EnderecoRequest endereco;
 
     public PropostaRequest(@NotBlank String documento, @NotBlank @Email String email,
-                           @NotBlank String nome, @NotBlank String endereco,
-                           @NotNull BigDecimal salario) {
+                           @NotBlank String nome,  @NotNull BigDecimal salario) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
-        this.endereco = endereco;
         this.salario = salario;
     }
 
@@ -41,15 +39,17 @@ public class PropostaRequest {
         return nome;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
     public BigDecimal getSalario() {
         return salario;
     }
+    
+    public EnderecoRequest getEndereco() {
+		return endereco;
+	}
 
     public Proposta toModel() {
-        return new Proposta(documento, email, nome, endereco,salario);
+        return new Proposta(documento, email, nome, salario, endereco.toModel());
     }
+
+	
 }
