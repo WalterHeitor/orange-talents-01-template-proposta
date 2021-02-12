@@ -1,11 +1,18 @@
 package br.com.zup.proposta.proposta;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
 @Entity
 public class Proposta {
 
@@ -27,6 +34,8 @@ public class Proposta {
     @NotNull
     @Embedded
     private Endereco endereco;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     
     @Deprecated
     public Proposta() { }
@@ -61,6 +70,17 @@ public class Proposta {
 	}
 	public Endereco getEndereco() {
 		return endereco;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public void atualizaStatus(String solicitacao) {
+		this.status = Status.resultadoPara(solicitacao);
+		
 	}
 	
 }
