@@ -4,11 +4,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "cartao", url = "${cartao..url}")
+@FeignClient(name = "cartao", url = "${cartao.uri}")
 public interface CartaoClient {
 
 	
 	@GetMapping
-	public void consultarCartao(@RequestParam Long idProposta);
+	NovoCartaoResponse consultarCartao(@RequestParam String idProposta);
 		
 }

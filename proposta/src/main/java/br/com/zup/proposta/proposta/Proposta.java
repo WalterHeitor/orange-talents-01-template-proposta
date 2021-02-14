@@ -2,6 +2,7 @@ package br.com.zup.proposta.proposta;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,9 +11,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import br.com.zup.proposta.cartao.Cartao;
 @Entity
 public class Proposta {
 
@@ -36,6 +40,8 @@ public class Proposta {
     private Endereco endereco;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cartao cartao;
     
     @Deprecated
     public Proposta() { }
@@ -79,8 +85,22 @@ public class Proposta {
 	}
 
 	public void atualizaStatus(String solicitacao) {
-		this.status = Status.resultadoPara(solicitacao);
-		
+		this.status = Status.resultadoPara(solicitacao);	
 	}
+
+	public Cartao getCartao() {
+		return cartao;
+	}
+
+	public void atualizaCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+
+	@Override
+	public String toString() {
+		return "Proposta [id=" + id + ", documento=" + documento + ", email=" + email + ", nome=" + nome + ", salario="
+				+ salario + ", endereco=" + endereco + ", status=" + status + ", cartao=" + cartao + "]";
+	}
+
 	
 }

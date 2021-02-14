@@ -1,7 +1,6 @@
 package br.com.zup.proposta.proposta;
 
 import java.net.URI;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -38,10 +37,8 @@ public class PropostaController {
 	@PostMapping
 //    @Transactional
     public ResponseEntity<?>salvar(@RequestBody @Valid PropostaRequest request, UriComponentsBuilder builder){
-    	
-    	Optional<Proposta> possivelProprosta = propostaRepository.findByDocumento(request.getDocumento());
 
-    	if(!possivelProprosta.isEmpty()) {//resposta do 422 erro de regras de negocio.
+    	if(propostaRepository.existsByDocumento(request.getDocumento())) {//resposta do 422 erro de regras de negocio.
     		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Já existe uma proposta co este documento "
     				+ "informado");
     	}
