@@ -34,6 +34,5 @@ public class ConsultaPropostaController {
 		logger.info("Encontrou a proposta dedesjada com id={} e nome={} ",
 				proposta.get().getId(), proposta.get().getNome());
 		return ResponseEntity.ok(PropostaResponse.transformaDTO(proposta.get()));
-		//return ResponseEntity.ok(proposta);
 	}
 }
