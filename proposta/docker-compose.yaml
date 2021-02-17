@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+ proposta:
+  image: walter/propostas 
+  container_name: proposta
+  ports:
+   - 8080:8080
+  depends_on:
+   - propostas-postgres
+  environment:
+   - SPRING_PROFILES_ACTIVE=prod
+
+ propostas-postgres:
+  image: postgres:alpine
+  container_name: propostas-postgres
+  volumes:
+  - postgres-volume:/var/lib/postgres/data
+  ports:
+   - 15432:5432
+  environment:
+   POSTGRES_url: jdbc:postgresql://localhost:5432/proposta?createDatabaseIfNotExist=TRUE&useSSL=false
+   POSTGRES_USER: postgres
+   POSTGRES_PASSWORD: mariaclara
+volumes:
+ postgres-volume:
+
