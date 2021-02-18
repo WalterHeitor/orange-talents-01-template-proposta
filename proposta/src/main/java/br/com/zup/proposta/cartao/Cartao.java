@@ -2,13 +2,19 @@ package br.com.zup.proposta.cartao;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import br.com.zup.proposta.biometria.Biometria;
 
 @Entity
 public class Cartao {
@@ -23,6 +29,10 @@ public class Cartao {
 	private String titular;
 	@NotNull
 	private BigDecimal limite;
+	
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)//,cascade = CascadeType.REFRESH
+	private List<Biometria>biometrias = new ArrayList<>();
+	
 	@Deprecated
 	public Cartao() {	}
 
@@ -54,5 +64,22 @@ public class Cartao {
 	public BigDecimal getLimite() {
 		return limite;
 	}
+
+	public void incluiBiometria(byte[] digital) {
+		biometrias.add(new Biometria(digital, this));
+	}
+
+	public void incluiBiometria(Biometria biometria) {
+		biometrias.add(biometria);
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Cartao [id=" + id + ", numero=" + numero + ", emitidoEm=" + emitidoEm + ", titular=" + titular
+				+ ", limite=" + limite +  "]";
+	}
+	
+		
 	
 }
