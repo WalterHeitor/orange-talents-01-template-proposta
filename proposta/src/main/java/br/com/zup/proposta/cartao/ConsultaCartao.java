@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,15 +20,10 @@ import br.com.zup.proposta.proposta.Status;
 public class ConsultaCartao {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	private final Pageable paginacao = PageRequest.of(0, 5);
-	
-	private final CartaoClient cartaoClient;
-	private final PropostaRepository propostaRepository;
-	
-	public ConsultaCartao(CartaoClient cartaoClient, PropostaRepository propostaRepository) {
-		this.cartaoClient = cartaoClient;
-		this.propostaRepository = propostaRepository;
-	}
+	@Autowired
+	private  CartaoClient cartaoClient;
+	@Autowired
+	private PropostaRepository propostaRepository;
 	
 	@Scheduled(fixedRateString = "${consulta.cartao}")
 	public void consultarCartao() {

@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import br.com.zup.proposta.biometria.Biometria;
+import br.com.zup.proposta.bloqueio.Bloqueio;
 
 @Entity
 public class Cartao {
@@ -30,8 +33,14 @@ public class Cartao {
 	@NotNull
 	private BigDecimal limite;
 	
+	@Enumerated(EnumType.STRING)
+	private CartaoStatus cartaoStatus = CartaoStatus.DESBLOQUEADO;
+	
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)//,cascade = CascadeType.REFRESH
 	private List<Biometria>biometrias = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+	private List<Bloqueio>bloqueios = new ArrayList<>();
 	
 	@Deprecated
 	public Cartao() {	}
@@ -64,14 +73,23 @@ public class Cartao {
 	public BigDecimal getLimite() {
 		return limite;
 	}
-
-	public void incluiBiometria(byte[] digital) {
-		biometrias.add(new Biometria(digital, this));
+	
+	public CartaoStatus getCartaoStatus() {
+		return cartaoStatus;
+	}
+	public void atualizaCartaoStatus(CartaoStatus cartaoStatus) {
+		this.cartaoStatus = cartaoStatus;
 	}
 
 	public void incluiBiometria(Biometria biometria) {
 		biometrias.add(biometria);
 		
+	}
+	public List<Bloqueio> getBloqueios() {
+		return bloqueios;
+	}
+	public void incluiBloqueios(Bloqueio bloqueio) {
+		bloqueios.add(bloqueio);
 	}
 
 	@Override

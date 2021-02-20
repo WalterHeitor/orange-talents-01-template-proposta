@@ -15,7 +15,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 	private static final String[] PUBLIC_MACHERS = {"/h2-console/**", "/propostas/**",
-											"/biometrias/**"};
+											"/biometrias/**", "/bloqueios/**"
+											,"/actuator/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -23,12 +24,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests(authorizeRequests ->
 		        authorizeRequests
 		        		.antMatchers(PUBLIC_MACHERS).permitAll()
-		        		.antMatchers(HttpMethod.GET, "/propostas/**").permitAll()
-		                .antMatchers(HttpMethod.GET, "/api/propostas/**").hasAuthority("SCOPE_propostas:read")
+		                .antMatchers(HttpMethod.GET, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:read")
 		                .antMatchers(HttpMethod.GET, "/api/cartoes/**").hasAuthority("SCOPE_cartoes:read")
-		                .antMatchers(HttpMethod.POST, "/api/cartoes/**").hasAuthority("SCOPE_cartoes:write")
-		                .antMatchers(HttpMethod.POST, "/api/propostas/**").hasAuthority("SCOPE_propostas:write")
-		                .antMatchers(HttpMethod.GET,"/api/actuator/**").hasAuthority("SCOPE_propostas:read")
+		                .antMatchers(HttpMethod.POST, "/api/cartoes/**").hasAuthority("SCOPE_walter-proposta:write")
+		                .antMatchers(HttpMethod.POST, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:write")
+		                .antMatchers(HttpMethod.GET,"/api/actuator/**").hasAuthority("SCOPE_walter-proposta:read")
 		                .anyRequest().denyAll())
 		             .csrf().disable()
 		             .sessionManagement()

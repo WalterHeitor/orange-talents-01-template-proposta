@@ -51,7 +51,6 @@ public class PropostaController {
         try {
         	AnaliseClient.ConsultaStatusResponse resposta = analiseClient.consulta(requisicaoAnalise);  //esta parte tem que ficar dentro try cath            	
         	proposta.atualizaStatus(resposta.getResultadoSolicitacao());
-        	System.out.println("salvou 2 cath");
 		} catch (FeignException.UnprocessableEntity e) {//so deu certo com FeignClientExceptiono 
 			proposta.setStatus(Status.NAO_ELEGIVEL);
 		}

@@ -94,6 +94,7 @@ public class Proposta {
 
 	public void atualizaCartao(Cartao cartao) {
 		this.cartao = cartao;
+		this.status = Status.ELEGIVEL_COM_CARTAO;
 	}
 
 	@Override
