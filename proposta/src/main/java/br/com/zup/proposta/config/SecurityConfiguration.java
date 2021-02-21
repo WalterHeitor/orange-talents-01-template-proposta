@@ -16,7 +16,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 	private static final String[] PUBLIC_MACHERS = {"/h2-console/**", "/propostas/**",
 											"/biometrias/**", "/bloqueios/**"
-											,"/actuator/**"};
+											,"/actuator/**", "/avisos/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		        authorizeRequests
 		        		.antMatchers(PUBLIC_MACHERS).permitAll()
 		                .antMatchers(HttpMethod.GET, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:read")
-		                .antMatchers(HttpMethod.GET, "/api/cartoes/**").hasAuthority("SCOPE_cartoes:read")
+		                .antMatchers(HttpMethod.GET, "/api/cartoes/**").hasAuthority("SCOPE_walter-proposta:read")
 		                .antMatchers(HttpMethod.POST, "/api/cartoes/**").hasAuthority("SCOPE_walter-proposta:write")
 		                .antMatchers(HttpMethod.POST, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:write")
 		                .antMatchers(HttpMethod.GET,"/api/actuator/**").hasAuthority("SCOPE_walter-proposta:read")
