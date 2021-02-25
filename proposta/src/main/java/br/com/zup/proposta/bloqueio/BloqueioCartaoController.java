@@ -1,6 +1,5 @@
 package br.com.zup.proposta.bloqueio;
 
-import java.net.URI;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.zup.proposta.cartao.Cartao;
 import br.com.zup.proposta.cartao.CartaoClient;
 import br.com.zup.proposta.cartao.CartaoRepository;
-import br.com.zup.proposta.cartao.CartaoStatus;
 import feign.FeignException;
 
 @RestController

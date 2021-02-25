@@ -19,7 +19,7 @@ services:
   ports:
    - 15432:5432
   environment:
-   POSTGRES_url: jdbc:postgresql://localhost:5432/proposta?createDatabaseIfNotExist=TRUE&useSSL=false
+   POSTGRES_URL: jdbc:postgresql://localhost:5432/proposta?createDatabaseIfNotExist=TRUE&useSSL=false
    POSTGRES_USER: postgres
    POSTGRES_PASSWORD: mariaclara
 volumes:

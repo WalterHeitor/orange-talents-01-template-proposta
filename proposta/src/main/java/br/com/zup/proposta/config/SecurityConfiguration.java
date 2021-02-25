@@ -15,21 +15,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 	private static final String[] PUBLIC_MACHERS = {"/h2-console/**", "/propostas/**",
-											"/biometrias/**", "/bloqueios/**"
-											,"/actuator/**", "/avisos/**"};
+											"/biometrias/**", "/bloqueios/**",
+											 "/avisos/**", "/carteiras/**"};
 
+	private static final String[] PUBLIC_MACHERS_ACTUATOR = {"/actuator/**"};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.info("---------configurações de autenticação------------");
 		http.authorizeRequests(authorizeRequests ->
 		        authorizeRequests
-		        		.antMatchers(PUBLIC_MACHERS).permitAll()
-		                .antMatchers(HttpMethod.GET, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:read")
-		                .antMatchers(HttpMethod.GET, "/api/cartoes/**").hasAuthority("SCOPE_walter-proposta:read")
-		                .antMatchers(HttpMethod.POST, "/api/cartoes/**").hasAuthority("SCOPE_walter-proposta:write")
-		                .antMatchers(HttpMethod.POST, "/api/propostas/**").hasAuthority("SCOPE_walter-proposta:write")
-		                .antMatchers(HttpMethod.GET,"/api/actuator/**").hasAuthority("SCOPE_walter-proposta:read")
-		                .anyRequest().denyAll())
+		        		//.antMatchers(PUBLIC_MACHERS).permitAll()
+		                .antMatchers(PUBLIC_MACHERS_ACTUATOR).permitAll()
+		                .antMatchers(HttpMethod.GET, "/propostas/**").hasAuthority("SCOPE_walter-proposta:read")
+		                .antMatchers(HttpMethod.GET, "/cartoes/**").hasAuthority("SCOPE_walter-proposta:read")
+		                .antMatchers(HttpMethod.POST, "/cartoes/**").hasAuthority("SCOPE_walter-proposta:write")
+		                .antMatchers(HttpMethod.POST, "/propostas").hasAuthority("SCOPE_walter-proposta:write")
+		                .antMatchers(HttpMethod.GET,"/actuator/**").hasAuthority("SCOPE_walter-proposta:read")
+		                .anyRequest().authenticated())
 		             .csrf().disable()
 		             .sessionManagement()
 		             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

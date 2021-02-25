@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.zup.proposta.bloqueio.BloqueioRequest;
 import br.com.zup.proposta.bloqueio.BloqueioResponse;
+import br.com.zup.proposta.carteira.CarteiraRequest;
+import br.com.zup.proposta.carteira.CarteiraResponse;
 import br.com.zup.proposta.viagem.ViagemRequest;
 import br.com.zup.proposta.viagem.ViagemResponse;
 
@@ -24,5 +26,8 @@ public interface CartaoClient {
 	
 	@PostMapping(value= "/api/cartoes/{id}/avisos")
 	ViagemResponse avizarViagem(@PathVariable("id") String numero,@RequestBody ViagemRequest request);
+	
+	@PostMapping("/api/cartoes/{id}/carteiras")
+	CarteiraResponse cadastrarCarteira(@PathVariable("id") String numero, @RequestBody CarteiraRequest carteiraRequest);
 		
 }

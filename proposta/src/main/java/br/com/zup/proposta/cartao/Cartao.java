@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.zup.proposta.biometria.Biometria;
 import br.com.zup.proposta.bloqueio.Bloqueio;
+import br.com.zup.proposta.carteira.Carteira;
 import br.com.zup.proposta.viagem.StatusViagem;
 import br.com.zup.proposta.viagem.Viagem;
 
@@ -46,6 +47,9 @@ public class Cartao {
 	
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
 	private List<Viagem>viagens = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+	private List<Carteira>carteiras = new ArrayList<>();
 	
 	@Deprecated
 	public Cartao() {	}
@@ -101,6 +105,11 @@ public class Cartao {
 	public void incluiViajem(Viagem viagem) {
 		viagem.atualizaStatus(StatusViagem.CRIADO);
 		viagens.add(viagem);
+		
+	}
+
+	public void incluirCarteira(Carteira carteira) {
+		carteiras.add(carteira);
 		
 	}
 	
