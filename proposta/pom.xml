@@ -97,6 +97,15 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+<!-- https://mvnrepository.com/artifact/org.jasypt/jasypt -->
+<dependency>
+    <groupId>org.jasypt</groupId>
+    <artifactId>jasypt</artifactId>
+    <version>1.9.2</version>
+</dependency>
+
+
+
 
 	</dependencies>
 	<!-- gerenciando dependencias -->

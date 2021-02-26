@@ -12,11 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zup.proposta.cartao.Cartao;
+import br.com.zup.proposta.criptografia.CriptografarTexto;
 @Entity
 public class Proposta {
 
@@ -42,13 +44,14 @@ public class Proposta {
     private Status status;
     @OneToOne(cascade = CascadeType.ALL)
     private Cartao cartao;
+  
     
     @Deprecated
     public Proposta() { }
 
 	public Proposta(@NotBlank String documento, @NotBlank String email, @NotBlank String nome,
 			@Positive @NotNull BigDecimal salario, @NotNull Endereco endereco) {
-		this.documento = documento;
+		this.documento = CriptografarTexto.encode(documento);;
 		this.email = email;
 		this.nome = nome;
 		this.salario = salario;
@@ -80,6 +83,7 @@ public class Proposta {
 	public Status getStatus() {
 		return status;
 	}
+	
 	public void setStatus(Status status) {
 		this.status = status;
 	}

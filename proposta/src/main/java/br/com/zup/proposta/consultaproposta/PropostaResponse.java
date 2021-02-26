@@ -2,6 +2,7 @@ package br.com.zup.proposta.consultaproposta;
 
 import java.math.BigDecimal;
 
+import br.com.zup.proposta.criptografia.CriptografarTexto;
 import br.com.zup.proposta.proposta.Proposta;
 
 public class PropostaResponse {
@@ -15,7 +16,7 @@ public class PropostaResponse {
 	
 	public PropostaResponse(String documento, String email, String nome, BigDecimal salario, String status) {
 		super();
-		this.documento = documento;
+		this.documento = CriptografarTexto.dencode(documento);
 		this.email = email;
 		this.nome = nome;
 		this.salario = salario;
