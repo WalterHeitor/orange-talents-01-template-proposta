@@ -9,4 +9,4 @@ scrape_configs:
     static_configs:
 #       - targets: ['localhost:8080']
 #       - targets: ['proposta:8080']
-       - targers: ['host.docker.internal:8080']
+       - targets: ['host.docker.internal:8080']

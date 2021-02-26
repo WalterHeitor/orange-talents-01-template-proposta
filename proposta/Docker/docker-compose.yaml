@@ -110,9 +110,10 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
+#      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
       - prometheus-volume:/etc/prometheus/
                        # /Docker/ e pasta criada.
-      - ./prometheus.yml:/Docker/etc/prometheus/prometheus.yml
+      
     network_mode: bridge
     ports:
       - "9090:9090"
