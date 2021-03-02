@@ -63,7 +63,7 @@ public class Proposta {
 	}
 
 	public String getDocumento() {
-		return documento;
+		return CriptografarTexto.dencode(documento);
 	}
 
 	public String getEmail() {

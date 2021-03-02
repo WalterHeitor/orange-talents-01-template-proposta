@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zup.proposta.compartilhada.ExemploLogs;
+import br.com.zup.proposta.criptografia.CriptografarTexto;
 import feign.FeignException;
 
 
@@ -38,7 +39,9 @@ public class PropostaController {
 //    @Transactional
     public ResponseEntity<?>salvar(@RequestBody @Valid PropostaRequest request, UriComponentsBuilder builder){
 
-    	if(propostaRepository.existsByDocumento(request.getDocumento())) {//resposta do 422 erro de regras de negocio.
+		String doc;
+		doc = CriptografarTexto.encode(request.getDocumento());
+    	if(propostaRepository.existsByDocumento(doc)) {//resposta do 422 erro de regras de negocio.
     		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Já existe uma proposta co este documento "
     				+ "informado");
     	}

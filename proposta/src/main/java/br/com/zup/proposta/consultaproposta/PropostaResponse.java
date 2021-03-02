@@ -16,7 +16,7 @@ public class PropostaResponse {
 	
 	public PropostaResponse(String documento, String email, String nome, BigDecimal salario, String status) {
 		super();
-		this.documento = CriptografarTexto.dencode(documento);
+		this.documento = documento;//CriptografarTexto.dencode(documento);
 		this.email = email;
 		this.nome = nome;
 		this.salario = salario;
